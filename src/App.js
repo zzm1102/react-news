@@ -1,27 +1,57 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header'
+import Tab from './components/Tab/Tab'
+import Post from './components/Post/Post'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {postList: null}
+  }
+
+  componentWillMount() {
+    this.jsonp('https://3g.163.com/touch/reconstruct/article/list/BA10TA81wangning/0-10.html',  (data) => {
+      // data = JSON.stringify(data)
+      
+      const list = data.BA10TA81wangning;
+      this.setState({
+        postList: list
+      })
+      console.log(data.BA10TA81wangning);
+    });
+  }
+
+  jsonp(url, callback) {
+    var callbackName = 'artiList';
+    window[callbackName] = function(data) {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        callback(data);
+    };
+
+    var script = document.createElement('script');
+    script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+    document.body.appendChild(script);
+  }
+
+
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+    if ( this.state.postList === null ) {
+      console.log('loading') 
+      return false;
+    } else {
+      console.log(this.state.postList)
+      
+      return (
+        <div className="App">
+          <Header></Header>
+          { this.state.postList.map((item, key) => <Post post={item} key={key}></Post>) }
+          <Tab></Tab>
+        </div>
+      );
+    }
   }
 }
 
