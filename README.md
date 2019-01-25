@@ -1,4 +1,7 @@
 # react-news
+预览地址：https://zzm1102.github.io/react-news/dist/#/
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
