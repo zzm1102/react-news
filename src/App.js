@@ -18,16 +18,15 @@ class App extends Component {
       this.setState({
         postList: list
       })
-      console.log(data.BA10TA81wangning);
     });
   }
 
   jsonp(url, callback) {
     var callbackName = 'artiList';
     window[callbackName] = function(data) {
-        delete window[callbackName];
-        document.body.removeChild(script);
-        callback(data);
+      delete window[callbackName];
+      document.body.removeChild(script);
+      callback(data);
     };
 
     var script = document.createElement('script');
@@ -35,19 +34,18 @@ class App extends Component {
     document.body.appendChild(script);
   }
 
-
-
+  
   render() {
     if ( this.state.postList === null ) {
       console.log('loading') 
       return false;
     } else {
-      console.log(this.state.postList)
-      
       return (
         <div className="App">
           <Header></Header>
+          <div className="Post">
           { this.state.postList.map((item, key) => <Post post={item} key={key}></Post>) }
+          </div>
           <Tab></Tab>
         </div>
       );

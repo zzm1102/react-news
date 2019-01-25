@@ -5,7 +5,6 @@ class Post extends Component {
   constructor(props) {
     super(props)
 
-    console.log(props)
     this.state = {
       post : props.post
     }
@@ -15,13 +14,14 @@ class Post extends Component {
     const post = this.props.post
     return (
       <div className="Post-box">
-        <h2>{post.title}</h2>
-        <img className="Post-thumbnail" src={post.imgsrc} alt="thumbnail"/>
-        <div>
-          <span>置顶</span>
+        <div className="Post-info">
+          <h2 className="Post-title">{post.title}</h2>
+          <img className="Post-thumbnail" src={post.imgsrc} alt="thumbnail"/>
+        </div>
+        <div className="Post-detail">
           <span>{post.source}</span>
           <span>{post.commentCount}评论</span>
-          <span>shijian</span>
+          <span>{post.ptime}</span>
         </div>
       </div>
     )
