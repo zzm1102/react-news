@@ -41,7 +41,7 @@ class App extends Component {
     } else {
       return (
         <HashRouter>
-          <Switch className="App">
+          <Switch>
             <Route exact path='/'>
               <Main postList={this.state.postList}></Main>
             </Route>
