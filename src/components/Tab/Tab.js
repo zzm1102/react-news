@@ -24,7 +24,8 @@ class Tab extends Component {
 
   render() {
     const tabList = this.state.tabs.map((item, index) => {
-      let tabStyle = item.id === this.state.currentIndex ? 'Tab-item active' : 'Tab-item';
+      const tabStyle = item.id === this.state.currentIndex ? 'Tab-item active' : 'Tab-item';
+
       return <li key={index} onClick={this.changeTab.bind(this, item.id)} className={tabStyle}
       >{item.tabName}</li>
     });

@@ -1,0 +1,15 @@
+.Article {
+  padding: 30px 20px;
+}
+.Article-title {
+  font-size: 20px;
+  margin: 0;
+}
+.detail {
+  font-size: 16px;
+  color: #999;
+  margin-top: 0;
+}
+.Main-pic {
+  width: 100%;
+}

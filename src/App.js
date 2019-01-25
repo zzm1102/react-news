@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header'
-import Tab from './components/Tab/Tab'
-import Post from './components/Post/Post'
+import Main from './components/Main/Main'
+import Article from './components/Article/Article'
 
 class App extends Component {
   constructor(props) {
@@ -12,9 +12,8 @@ class App extends Component {
 
   componentWillMount() {
     this.jsonp('https://3g.163.com/touch/reconstruct/article/list/BA10TA81wangning/0-10.html',  (data) => {
-      // data = JSON.stringify(data)
-      
       const list = data.BA10TA81wangning;
+      console.log(list)
       this.setState({
         postList: list
       })
@@ -33,7 +32,7 @@ class App extends Component {
     script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
     document.body.appendChild(script);
   }
-
+  
   
   render() {
     if ( this.state.postList === null ) {
@@ -41,13 +40,17 @@ class App extends Component {
       return false;
     } else {
       return (
-        <div className="App">
-          <Header></Header>
-          <div className="Post">
-          { this.state.postList.map((item, key) => <Post post={item} key={key}></Post>) }
-          </div>
-          <Tab></Tab>
-        </div>
+        <HashRouter>
+          <Switch className="App">
+            <Route exact path='/'>
+              <Main postList={this.state.postList}></Main>
+            </Route>
+            
+            <Route path='/article/:id'>
+              <Article postList={this.state.postList}></Article>
+            </Route>
+          </Switch>
+        </HashRouter>
       );
     }
   }
